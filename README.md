@@ -1,2 +1,1 @@
-# creche_project
- mern project
+# CaringNanny-MERN-Full-Stack-with-Gen-AI
