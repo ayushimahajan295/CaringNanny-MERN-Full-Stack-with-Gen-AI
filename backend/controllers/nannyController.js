@@ -1,7 +1,10 @@
 import Nanny from '../models/nannyModel.js'; // Adjust the path to your Nanny model
 import cloudinary from 'cloudinary'; // Import the entire Cloudinary module
 const { v2: cloudinaryV2 } = cloudinary; // Destructure to get the v2 object
-
+const getRandomRating = () => {
+    return (Math.random() * (5 - 1) + 1).toFixed(1); // Generates a number between 1 and 5 with one decimal
+  };
+  
 // Configure Cloudinary
 cloudinaryV2.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME, // Set your Cloudinary cloud name
@@ -18,7 +21,8 @@ export const addNanny = async (req, res) => {
         certifications,
         contactEmail,
         contactPhone,
-        address
+        address,
+        rate
     } = req.body;
 
     try {
@@ -80,6 +84,8 @@ export const addNanny = async (req, res) => {
             contactEmail,
             contactPhone,
             address,
+            rate,
+            ratings:getRandomRating(),
         });
 
         // Save the new nanny to the database
@@ -112,6 +118,51 @@ export const listNannies = async (req, res) => {
         console.error('Error fetching nannies:', error);
         res.status(500).json({ success: false, message: 'Internal Server Error' });
     }
+};
+
+export const getNanniesWithRatings = async (req, res) => {
+  try {
+    const nannies = await Nanny.aggregate([
+      {
+        $lookup: {
+          from: 'feedbacks', // Name of the feedback collection in MongoDB
+          localField: '_id',
+          foreignField: 'nannyId',
+          as: 'feedbacks',
+        },
+      },
+      {
+        $addFields: {
+          averageRating: { 
+            $avg: '$feedbacks.rating' 
+          }, // Calculate the average rating
+          feedbackCount: { 
+            $size: '$feedbacks' 
+          }  // Count of feedbacks
+        },
+      },
+      {
+        $project: {
+          firstName: 1,
+          lastName: 1,
+          age: 1,
+          experience: 1,
+          certifications: 1,
+          profilePicture: 1,
+          contactEmail: 1,
+          contactPhone: 1,
+          address: 1,
+          averageRating: { $ifNull: ['$averageRating', 0] }, // Default to 0 if no ratings
+          feedbackCount: 1,
+        },
+      },
+    ]);
+
+    res.status(200).json({ success: true, nannies });
+  } catch (error) {
+    console.error('Error fetching nannies with ratings:', error);
+    res.status(500).json({ success: false, message: 'Server error' });
+  }
 };
 
 // Function to get a single nanny by ID
