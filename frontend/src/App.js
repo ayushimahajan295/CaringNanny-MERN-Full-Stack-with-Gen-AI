@@ -14,8 +14,7 @@ import OurPolicy from './components/OurPolicy';
 import MyProfile from './pages/MyProfile';  // Import MyProfile component
 import BabySitter from './pages/BabySitter';
 import PurchasedNannies from './pages/PurchasedNannies';
-import ChatBot from './pages/ChatBot';
-import Feedback from './pages/FeedbackForm';
+import NannyBot from './components/NannyBot';
 
 const App = () => {
   return (
@@ -32,9 +31,11 @@ const App = () => {
         <Route path='/signup' element={<SignUp />} />
         <Route path='/profile' element={<MyProfile />} />
         <Route path="/Purchased" element={<PurchasedNannies />} />
-        <Route path="/chatbot" element={<ChatBot />} /> {/* Add the route for ChatBot */}
-        <Route path='/feedback' element={<Feedback />} />
       </Routes>
+
+      <NannyBot />
+
+      <OurPolicy />
       <Footer />
     </div>
   );
