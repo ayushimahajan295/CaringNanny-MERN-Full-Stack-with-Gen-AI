@@ -42,7 +42,7 @@ const Footer = () => {
           <p className="text-xl font-medium mb-5 text-indigo-700">Get in Touch</p>
           <ul className="flex flex-col gap-1 text-gray-600">
             <li className="flex items-center gap-2">
-              <FaPhone className="text-indigo-700" /> +91-567484849
+              <FaPhone className="text-indigo-700" /> +91 9991268863
             </li>
             <li className="flex items-center gap-2">
               <FaEnvelope className="text-indigo-700" /> contact@caringnanny.com
