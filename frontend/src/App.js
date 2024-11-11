@@ -14,6 +14,9 @@ import MyProfile from './pages/MyProfile';  // Import MyProfile component
 import BabySitter from './pages/BabySitter';
 import PurchasedNannies from './pages/PurchasedNannies';
 import NannyBot from './components/NannyBot';
+import PrivacyPolicy from './pages/PrivacyPolicy'; 
+import TermsAndConditions from './pages/TermsAndConditions';
+import OurServices from './pages/OurServices';
 
 const App = () => {
   return (
@@ -30,6 +33,10 @@ const App = () => {
         <Route path='/signup' element={<SignUp />} />
         <Route path='/profile' element={<MyProfile />} />
         <Route path="/Purchased" element={<PurchasedNannies />} />
+        <Route path='/our-services' element={<OurServices />} /> {/* Route for Our Services */}
+        <Route path='/privacy-policy' element={<PrivacyPolicy />} /> {/* PrivacyPolicy route */}
+        <Route path='/terms-and-conditions' element={<TermsAndConditions />} />
+        
       </Routes>
 
       <NannyBot />
