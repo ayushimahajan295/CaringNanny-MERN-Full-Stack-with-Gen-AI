@@ -10,7 +10,6 @@ import Login from './pages/Login';
 import SignUp from './pages/SignUp'; // Import SignUp component
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import OurPolicy from './components/OurPolicy';
 import MyProfile from './pages/MyProfile';  // Import MyProfile component
 import BabySitter from './pages/BabySitter';
 import PurchasedNannies from './pages/PurchasedNannies';
@@ -35,7 +34,6 @@ const App = () => {
 
       <NannyBot />
 
-      <OurPolicy />
       <Footer />
     </div>
   );
